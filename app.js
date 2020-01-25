@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 /**
  * DB config
@@ -24,6 +27,14 @@ app.use(cookieParser());
  */
 const router = require('./config/routes.js');
 app.use('/', router);
+
+/**
+ * Configure CORS
+ */
+app.use(cors({
+    credentials: true,
+    origin: ['http://localhost:3000']
+}))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
